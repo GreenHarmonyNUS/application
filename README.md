@@ -14,6 +14,11 @@ NEXTAUTH_SECRET=<random_string>
 > Note: `NEXTAUTH_SECRET` is used to securely encrypt cookies and hash tokens and is __required__ in production.
 > To generate a random string, run `openssl rand -base64 32`.
 
+Create a database and run the following command:
+```sh
+npx prisma db push
+```
+
 ```sh
 npm install
 npm run dev
@@ -24,3 +29,12 @@ npm run dev
 ### Code style
 
 Prettier is used as the code formatter for this application. It is recommended to use the [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) from Visual Studio Code.
+
+### Prisma schema
+
+After making changes to `prisma/schema.prisma`, format the schema and update the database.
+
+```sh
+npx prisma format
+npx prisma db push
+```
