@@ -8,7 +8,11 @@ import MetricBlock, {
   metricGoal13,
   metricGoal2,
 } from "./components/metric-block";
-import ProgressionBlock, { progressionDummyAgri, progressionDummyHandicraft, progressionDummySustainability } from "./components/progression-block";
+import ProgressionBlock, {
+  progressionDummyAgri,
+  progressionDummyHandicraft,
+  progressionDummySustainability,
+} from "./components/progression-block";
 
 interface HomepageProps {
   username: string;
@@ -18,9 +22,20 @@ const HomepageComponent = () => {
   // TODO: Get these data programatically
   const user = "Keith Chua";
   const event = dummyEvent1;
+  const myEvents = [
+    dummyEvent1,
+    dummyEvent1,
+    dummyEvent1,
+    dummyEvent1,
+    dummyEvent1,
+  ];
   const metrics = [metricDummyBottles, metricDummyCans, metricDummyCompost];
   const top3_UNSDG = [metricGoal2, metricGoal12, metricGoal13];
-  const progression = [progressionDummyAgri, progressionDummySustainability, progressionDummyHandicraft];
+  const progression = [
+    progressionDummyAgri,
+    progressionDummySustainability,
+    progressionDummyHandicraft,
+  ];
 
   return (
     <div>
@@ -37,9 +52,16 @@ const HomepageComponent = () => {
 
           {/* Your Events */}
           <h1 className="text-2xl font-bold">Your Events</h1>
-          <div className="mb-5">
-            carousell container
-            <EventCard {...event} />
+          <div
+            className="flex-column mb-5 flex overflow-auto"
+            style={{ maxWidth: "500px" }}
+          >
+            {myEvents.map((event) => (
+              <div key={event} className="m-5">
+                <EventCard {...event} />
+              </div>
+            ))}
+            {/* Additional EventCard components if needed */}
           </div>
           <div className="mb-5"></div>
         </div>
@@ -93,12 +115,12 @@ const HomepageComponent = () => {
 
         {/* Your Progression */}
         <div className="m-5">
-          <h1 className="text-2xl font-bold mb-5">Your Growth</h1>
-            {progression.map((prog)=>(
-                <div key={prog.eventTagName} className="mt-2 mb-2">
-                    <ProgressionBlock  {...prog}/>
-                </div>
-            ))}
+          <h1 className="mb-5 text-2xl font-bold">Your Growth</h1>
+          {progression.map((prog) => (
+            <div key={prog.eventTagName} className="mb-2 mt-2">
+              <ProgressionBlock {...prog} />
+            </div>
+          ))}
           <div className="mb-5"></div>
         </div>
       </div>
