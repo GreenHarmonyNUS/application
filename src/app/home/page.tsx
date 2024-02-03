@@ -8,6 +8,7 @@ import MetricBlock, {
   metricGoal13,
   metricGoal2,
 } from "./components/metric-block";
+import ProgressionBlock, { progressionDummyAgri, progressionDummyHandicraft, progressionDummySustainability } from "./components/progression-block";
 
 interface HomepageProps {
   username: string;
@@ -19,6 +20,8 @@ const HomepageComponent = () => {
   const event = dummyEvent1;
   const metrics = [metricDummyBottles, metricDummyCans, metricDummyCompost];
   const top3_UNSDG = [metricGoal2, metricGoal12, metricGoal13];
+  const progression = [progressionDummyAgri, progressionDummySustainability, progressionDummyHandicraft];
+
   return (
     <div>
       <div className="navbar mb-2 w-full bg-green-500 p-4 text-center text-white">
@@ -90,7 +93,12 @@ const HomepageComponent = () => {
 
         {/* Your Progression */}
         <div className="m-5">
-          <h1 className="text-2xl font-bold">Your Growth</h1>
+          <h1 className="text-2xl font-bold mb-5">Your Growth</h1>
+            {progression.map((prog)=>(
+                <div key={prog.eventTagName} className="mt-2 mb-2">
+                    <ProgressionBlock  {...prog}/>
+                </div>
+            ))}
           <div className="mb-5"></div>
         </div>
       </div>
