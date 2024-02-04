@@ -45,6 +45,12 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    async signIn({ user }) {
+      if (user.id === user.email) {
+        return "/register";
+      }
+      return true;
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
