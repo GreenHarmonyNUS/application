@@ -74,11 +74,12 @@ const HomepageComponent = () => {
               "url(https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundAttachment: "fixed",
             opacity: 0.85,
           }}
         >
           {/* Raw Metric Contributions */}
-          <div className="metric-cont flex flex-col items-center">
+          <div className="metric-cont flex flex-col items-center pt-10">
             <h1 className="text-center text-2xl font-bold text-white">
               Your Contributions
             </h1>
@@ -95,8 +96,8 @@ const HomepageComponent = () => {
           </div>
 
           {/* UN SDG Contributions */}
-          <div className="unsdg-cont  flex flex-col items-center">
-            <h1 className="mb-5 text-center text-2xl font-bold text-white">
+          <div className="unsdg-cont  flex flex-col items-center pb-4">
+            <h1 className="text-center text-2xl font-bold text-white">
               Top 3 UN SDG
             </h1>
             {/* TODO: column-wise contributions */}
