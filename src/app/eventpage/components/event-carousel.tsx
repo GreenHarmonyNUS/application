@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { Box, IconButton } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import EventCard from "./event-card"; // Adjust the path as needed
+import EventCard from "./event-card";
 
-// Define an interface for the event object if you haven't already
 interface Event {
   title: string;
   imageUrl: string;
