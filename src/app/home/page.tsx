@@ -28,9 +28,6 @@ const HomepageComponent = () => {
 
   return (
     <div>
-      <div className="navbar mb-2 w-full bg-green-500 p-4 text-center text-white">
-        this is a navbar
-      </div>
       {/* Content container */}
       <div className="m-0">
         {/* Align things with margin 5 */}
