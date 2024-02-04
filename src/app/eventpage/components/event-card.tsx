@@ -10,10 +10,11 @@ import {
 
 interface EventCardProps {
   title: string;
-  date: string;
-  location: string;
-  tags: string[];
+  date?: string;
+  location?: string;
+  tags?: string[];
   imageUrl: string;
+  minimal?: boolean;
 }
 
 const EventCard: React.FC<EventCardProps> = ({
@@ -22,35 +23,106 @@ const EventCard: React.FC<EventCardProps> = ({
   location,
   tags,
   imageUrl,
-}) => (
-  <Card sx={{ maxWidth: 345, m: 2 }}>
-    <CardActionArea>
-      <CardMedia component="img" height="140" image={imageUrl} alt={title} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {date}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {location}
-        </Typography>
-        <Box>
-          {tags.map((tag, index) => (
-            <Typography
-              key={index}
-              variant="body2"
-              color="primary"
-              component="span"
-            >
-              #{tag}{" "}
+  minimal = false,
+}) => {
+  // Conditionally render different layouts based on the `minimal` prop
+  if (minimal) {
+    // Minimal card layout
+    return (
+      <Card
+        sx={{
+          maxWidth: 200,
+          width: "100%",
+          m: 2,
+          height: 300, // Fixed height for minimal cards
+          position: "relative",
+        }}
+      >
+        <CardActionArea sx={{ height: "100%", position: "relative" }}>
+          <CardMedia
+            component="img"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            image={imageUrl}
+            alt={title}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              bgcolor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for better readability
+              color: "white",
+              padding: "8px",
+            }}
+          >
+            <Typography variant="h6" component="div">
+              {title}
             </Typography>
-          ))}
-        </Box>
-      </CardContent>
-    </CardActionArea>
-  </Card>
-);
+          </Box>
+        </CardActionArea>
+      </Card>
+    );
+  } else {
+    // Standard card layout with fixed height for non-minimal cards
+    return (
+      <Card
+        sx={{
+          maxWidth: 345,
+          width: "100%",
+          m: 0.5,
+          height: 400, // Standardized height for non-minimal cards
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image={imageUrl}
+            alt={title}
+            sx={{
+              objectFit: "cover",
+            }}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="div">
+              {title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {date}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {location}
+            </Typography>
+            {tags && (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {tags.map((tag, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    color="primary"
+                    component="span"
+                  >
+                    #{tag}
+                  </Typography>
+                ))}
+              </Box>
+            )}
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    );
+  }
+};
 
 export default EventCard;
