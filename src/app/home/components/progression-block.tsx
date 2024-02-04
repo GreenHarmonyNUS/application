@@ -1,9 +1,6 @@
-import { Box, createTheme } from "@mui/material";
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress";
-import { styled } from "@mui/material/styles";
-import { margin, padding } from "@mui/system";
+import { Box } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+import Image from "next/image";
 import React from "react";
 
 export interface ProgressionInterface {
@@ -52,7 +49,7 @@ const ProgressionBlock: React.FC<ProgressionInterface> = (props) => {
       {/* Icon on the left */}
       <div className="mr-4 flex flex-col pb-5 pt-5">
         {/* Replace 'your-icon.png' with the actual path to your icon */}
-        <img src={image_path} alt="Progression" className="h-12 w-12" />
+        <Image src={image_path} alt="Progression" className="h-12 w-12" />
       </div>
 
       {/* Linear progress bar on the right */}
