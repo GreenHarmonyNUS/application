@@ -1,5 +1,6 @@
 import React from "react";
-import EventCard, { dummyEvent1 } from "../_components/event-card";
+import EventCard from "../_components/event-card";
+import { mockEvents } from "./mock-events";
 import MetricBlock, {
   metricDummyBottles,
   metricDummyCans,
@@ -14,21 +15,9 @@ import ProgressionBlock, {
   progressionDummySustainability,
 } from "./components/progression-block";
 
-interface HomepageProps {
-  username: string;
-}
-
 const HomepageComponent = () => {
   // TODO: Get these data programatically
   const user = "Keith Chua";
-  const event = dummyEvent1;
-  const myEvents = [
-    dummyEvent1,
-    dummyEvent1,
-    dummyEvent1,
-    dummyEvent1,
-    dummyEvent1,
-  ];
   const metrics = [metricDummyBottles, metricDummyCans, metricDummyCompost];
   const top3_UNSDG = [metricGoal2, metricGoal12, metricGoal13];
   const progression = [
@@ -56,8 +45,8 @@ const HomepageComponent = () => {
             className="flex-column mb-5 flex overflow-auto"
             style={{ maxWidth: "500px" }}
           >
-            {myEvents.map((event) => (
-              <div key={event} className="m-5">
+            {mockEvents.map((event) => (
+              <div key={event.id} className="m-5">
                 <EventCard {...event} />
               </div>
             ))}
