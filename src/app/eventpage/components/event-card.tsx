@@ -7,10 +7,10 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import type { Event } from "prisma/generated/zod";
+import type { EventResponse } from "../../_types/event-response";
 import dayjs from "dayjs";
 
-interface EventCardProps extends Event {
+interface EventCardProps extends EventResponse {
   minimal?: boolean;
 }
 
@@ -46,7 +46,8 @@ const EventCard: React.FC<EventCardProps> = ({
               height: "100%",
               objectFit: "cover",
             }}
-            image={image}
+            // should account for missing images
+            image={image!}
             alt={name}
           />
           <Box
@@ -85,7 +86,8 @@ const EventCard: React.FC<EventCardProps> = ({
           <CardMedia
             component="img"
             height="140"
-            image={image}
+            // should account for missing images
+            image={image!}
             alt={name}
             sx={{
               objectFit: "cover",

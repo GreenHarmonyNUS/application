@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 import EventCard from "./event-card";
-import type { Event } from "prisma/generated/zod";
+import type { EventResponse } from "~/app/_types/event-response";
 
 interface EventsTabProps {
-  events: Event[];
+  events: EventResponse[];
 }
 
 const EventsTab: React.FC<EventsTabProps> = ({ events }) => {

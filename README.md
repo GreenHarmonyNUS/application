@@ -43,3 +43,6 @@ npx prisma db push
 
 Prisma should also run `prisma generate` automatically after the push operation is complete.
  
+> Note: Due to existing regressions in `zod` `>3.21.1`, the latest version of `zod` is not used.
+>
+> See https://github.com/colinhacks/zod/issues/2184 for more information

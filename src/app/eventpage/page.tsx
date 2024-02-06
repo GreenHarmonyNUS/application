@@ -2,9 +2,10 @@ import React from "react";
 import EventsTab from "./components/event-tab";
 import EventCarousel from "./components/event-carousel";
 import { api } from "~/trpc/server";
+import type { EventResponse } from "../_types/event-response";
 
 const MyEventsPage = async () => {
-  const eventData = await api.event.getAll.query();
+  const eventData: EventResponse[] = await api.event.getAll.query();
 
   return (
     <div>
@@ -15,3 +16,4 @@ const MyEventsPage = async () => {
 };
 
 export default MyEventsPage;
+export const dynamic = "force-dynamic";
