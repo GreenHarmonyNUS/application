@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -9,7 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  redirect("/home");
   noStore();
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white"></main>
