@@ -7,22 +7,19 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import type { EventResponse } from "../../_types/event-response";
+import dayjs from "dayjs";
 
-interface EventCardProps {
-  title: string;
-  date?: string;
-  location?: string;
-  tags?: string[];
-  imageUrl: string;
+interface EventCardProps extends EventResponse {
   minimal?: boolean;
 }
 
 const EventCard: React.FC<EventCardProps> = ({
-  title,
-  date,
+  name,
+  timestamp,
   location,
   tags,
-  imageUrl,
+  image,
   minimal = false,
 }) => {
   // Conditionally render different layouts based on the `minimal` prop
@@ -49,8 +46,9 @@ const EventCard: React.FC<EventCardProps> = ({
               height: "100%",
               objectFit: "cover",
             }}
-            image={imageUrl}
-            alt={title}
+            // should account for missing images
+            image={image!}
+            alt={name}
           />
           <Box
             sx={{
@@ -64,7 +62,7 @@ const EventCard: React.FC<EventCardProps> = ({
             }}
           >
             <Typography variant="h6" component="div">
-              {title}
+              {name}
             </Typography>
           </Box>
         </CardActionArea>
@@ -88,21 +86,22 @@ const EventCard: React.FC<EventCardProps> = ({
           <CardMedia
             component="img"
             height="140"
-            image={imageUrl}
-            alt={title}
+            // should account for missing images
+            image={image!}
+            alt={name}
             sx={{
               objectFit: "cover",
             }}
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="div">
-              {title}
+              {name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {date}
+              {dayjs(timestamp).format("DD MMM YYYY (ddd)")}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {location}
+              {location.name}
             </Typography>
             {tags && (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -113,7 +112,7 @@ const EventCard: React.FC<EventCardProps> = ({
                     color="primary"
                     component="span"
                   >
-                    #{tag}
+                    #{tag.name}
                   </Typography>
                 ))}
               </Box>

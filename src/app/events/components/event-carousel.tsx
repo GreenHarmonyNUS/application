@@ -5,15 +5,11 @@ import { Box, IconButton } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EventCard from "./event-card";
-
-interface Event {
-  title: string;
-  imageUrl: string;
-}
+import type { EventResponse } from "../../_types/event-response";
 
 // Define props for the EventCarousel component
 interface EventCarouselProps {
-  events: Event[];
+  events: EventResponse[];
 }
 
 const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
@@ -62,12 +58,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
         }}
       >
         {currentEvents.map((event, index) => (
-          <EventCard
-            key={index}
-            title={event.title}
-            imageUrl={event.imageUrl}
-            minimal={true}
-          />
+          <EventCard key={index} minimal={true} {...event} />
         ))}
       </Box>
       <IconButton

@@ -1,6 +1,5 @@
 import React from "react";
 import EventCard from "../_components/event-card";
-import { mockEvents } from "./mock-events";
 import MetricBlock, {
   metricDummyBottles,
   metricDummyCans,
@@ -14,8 +13,10 @@ import ProgressionBlock, {
   progressionDummyHandicraft,
   progressionDummySustainability,
 } from "./components/progression-block";
+import type { EventResponse } from "../_types/event-response";
+import { api } from "~/trpc/server";
 
-const HomepageComponent = () => {
+const HomepageComponent = async () => {
   // TODO: Get these data programatically
   const user = "Keith Chua";
   const metrics = [metricDummyBottles, metricDummyCans, metricDummyCompost];
@@ -25,6 +26,7 @@ const HomepageComponent = () => {
     progressionDummySustainability,
     progressionDummyHandicraft,
   ];
+  const eventData: EventResponse[] = await api.event.getAll.query();
 
   return (
     <div>
@@ -42,7 +44,7 @@ const HomepageComponent = () => {
             className="flex-column mb-5 flex overflow-auto"
             style={{ maxWidth: "500px" }}
           >
-            {mockEvents.map((event) => (
+            {eventData.map((event) => (
               <div key={event.id} className="m-5">
                 <EventCard {...event} />
               </div>
@@ -120,3 +122,4 @@ const HomepageComponent = () => {
 };
 
 export default HomepageComponent;
+export const dynamic = "force-dynamic";

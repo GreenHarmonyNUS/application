@@ -19,6 +19,8 @@ Create a database and run the following command:
 npx prisma db push
 ```
 
+Then populate the database with dummy data located in `prisma/data.sql`.
+
 ```sh
 npm install
 npm run dev
@@ -38,3 +40,9 @@ After making changes to `prisma/schema.prisma`, format the schema and update the
 npx prisma format
 npx prisma db push
 ```
+
+Prisma should also run `prisma generate` automatically after the push operation is complete.
+ 
+> Note: Due to existing regressions in `zod` `>3.21.1`, the latest version of `zod` is not used.
+>
+> See https://github.com/colinhacks/zod/issues/2184 for more information

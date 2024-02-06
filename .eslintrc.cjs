@@ -37,6 +37,7 @@ const config = {
       },
     ],
   },
+  "ignorePatterns": ["prisma/generated/**"]
 };
 
 module.exports = config;

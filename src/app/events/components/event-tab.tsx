@@ -12,18 +12,10 @@ import {
 } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 import EventCard from "./event-card";
-
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  location: string;
-  tags: string[];
-  imageUrl: string;
-}
+import type { EventResponse } from "~/app/_types/event-response";
 
 interface EventsTabProps {
-  events: Event[];
+  events: EventResponse[];
 }
 
 const EventsTab: React.FC<EventsTabProps> = ({ events }) => {
@@ -34,12 +26,12 @@ const EventsTab: React.FC<EventsTabProps> = ({ events }) => {
     setTabValue(newValue);
   };
 
-  const isUpcomingEvent = (date: string) => new Date(date) > new Date();
+  const isUpcomingEvent = (date: Date) => date > new Date();
 
   // Filter events for the "Upcoming" and "Past" tabs
   const filteredEvents = events.filter((event) => {
-    if (tabValue === "upcoming") return isUpcomingEvent(event.date);
-    if (tabValue === "past") return !isUpcomingEvent(event.date);
+    if (tabValue === "upcoming") return isUpcomingEvent(event.timestamp);
+    if (tabValue === "past") return !isUpcomingEvent(event.timestamp);
     return true; // For the "All" tab, return all events
   });
 
