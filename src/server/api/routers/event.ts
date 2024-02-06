@@ -1,14 +1,19 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { EventSchema } from "prisma/generated/zod";
-import type { Event } from "prisma/generated/zod";
 
 const idSchema = z.object({ id: z.number() });
 
 export const eventRouter = createTRPCRouter({
   getOne: publicProcedure.input(idSchema).query(({ input, ctx }) => {
     const { id } = input;
-    return ctx.db.event.findUnique({ where: { id } });
+    return ctx.db.event.findUnique({
+      where: { id },
+      include: {
+        location: true,
+        tags: true,
+      },
+    });
   }),
   getAll: publicProcedure.query(async ({ ctx }) => {
     const events = await ctx.db.event.findMany({
