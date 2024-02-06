@@ -19,6 +19,8 @@ Create a database and run the following command:
 npx prisma db push
 ```
 
+Then populate the database with dummy data located in `prisma/data.sql`.
+
 ```sh
 npm install
 npm run dev
@@ -38,3 +40,6 @@ After making changes to `prisma/schema.prisma`, format the schema and update the
 npx prisma format
 npx prisma db push
 ```
+
+Prisma should also run `prisma generate` automatically after the push operation is complete.
+ 

@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider = "zod-prisma-types"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -29,7 +33,7 @@ model User {
   preferredStartDate     DateTime?
   birthYear              Int?
   residentialDistrict    Int?
-  roles                  String?
+  roles                  String[]
   skills                 Skill[]
 
   emergencyName         String?
@@ -69,9 +73,11 @@ model EventLocation {
 }
 
 model EventTag {
-  name    String @id
-  Event   Event? @relation(fields: [eventId], references: [id])
-  eventId Int?
+  name    String
+  Event   Event  @relation(fields: [eventId], references: [id])
+  eventId Int
+
+  @@id([eventId, name])
 }
 
 model EventRegistrations {
@@ -90,12 +96,10 @@ model Event {
   location       EventLocation  @relation(fields: [eventLocationId], references: [id])
   details        String
   organiser      User           @relation(fields: [userId], references: [id])
-  approvalStatus ApprovalStatus
+  approvalStatus ApprovalStatus @default(PENDING)
   metrics        Metrics[]
   tags           EventTag[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  image          String?
 
   eventLocationId    Int
   EventRegistrations EventRegistrations[]
