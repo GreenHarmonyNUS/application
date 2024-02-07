@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   noStore();
-
   const eventData: EventResponse[] = await api.event.getAll.query();
 
   return (
