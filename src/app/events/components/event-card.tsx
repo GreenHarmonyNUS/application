@@ -28,6 +28,7 @@ const EventCard: React.FC<EventCardProps> = ({
     return (
       <Card
         sx={{
+          minWidth: 180,
           maxWidth: 200,
           width: "100%",
           m: 2,
@@ -73,6 +74,7 @@ const EventCard: React.FC<EventCardProps> = ({
     return (
       <Card
         sx={{
+          minWidth: 200,
           maxWidth: 345,
           width: "100%",
           m: 0.5,
