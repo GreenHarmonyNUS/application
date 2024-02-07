@@ -26,6 +26,7 @@ const HomepageComponent = async () => {
     progressionDummySustainability,
     progressionDummyHandicraft,
   ];
+
   const eventData: EventResponse[] = await api.event.getAll.query();
 
   console.log(eventData);
