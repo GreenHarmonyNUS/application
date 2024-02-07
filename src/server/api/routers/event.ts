@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { EventSchema } from "prisma/generated/zod";
+import { EventCreateInputSchema } from "prisma/generated/zod";
 
 const idSchema = z.object({ id: z.number() });
 
@@ -51,11 +51,14 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
-  create: protectedProcedure.input(EventSchema).mutation(({ input, ctx }) => {
-    return ctx.db.event.create({
-      data: EventSchema.parse(input),
-    });
-  }),
+  create: protectedProcedure
+    .input(EventCreateInputSchema)
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.$connect();
+      return ctx.db.event.create({
+        data: EventCreateInputSchema.parse(input),
+      });
+    }),
   delete: protectedProcedure.input(idSchema).mutation(({ input, ctx }) => {
     const { id } = input;
     // verify user role

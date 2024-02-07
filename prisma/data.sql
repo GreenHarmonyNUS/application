@@ -96,3 +96,8 @@ VALUES
     (5, 'clsa4zi91000408kydp08ctji'),
     (5, 'clsa4zmiz000508kyc7wu0dq3');
 
+SELECT setval(pg_get_serial_sequence('"Skill"', 'id'), coalesce(max(id)+1, 1), false) FROM "Skill";
+SELECT setval(pg_get_serial_sequence('"Metrics"', 'id'), coalesce(max(id)+1, 1), false) FROM "Metrics";
+SELECT setval(pg_get_serial_sequence('"Event"', 'id'), coalesce(max(id)+1, 1), false) FROM "Event";
+SELECT setval(pg_get_serial_sequence('"EventTag"', 'id'), coalesce(max(id)+1, 1), false) FROM "EventTag";
+SELECT setval(pg_get_serial_sequence('"EventLocation"', 'id'), coalesce(max(id)+1, 1), false) FROM "EventLocation";
