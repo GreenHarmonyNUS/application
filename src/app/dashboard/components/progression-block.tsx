@@ -40,7 +40,7 @@ const ProgressionBlock: React.FC<ProgressionInterface> = (props) => {
     "& .MuiLinearProgress-root": {
       backgroundColor: "rgba(255, 255, 255, 0.5)", // Color of the track (background)
     },
-    width: "70vw",
+    width: "50vw",
   };
 
   return (
@@ -52,12 +52,16 @@ const ProgressionBlock: React.FC<ProgressionInterface> = (props) => {
       </div>
 
       {/* Linear progress bar on the right */}
-      <Box sx={{ marginTop: "10px", marginLeft: "8px" }}>
-        <LinearProgress
-          variant="determinate"
-          value={value}
-          sx={progressBarStyles}
-        />
+      <Box sx={{ marginTop: "10px", marginLeft: "6px" }}>
+        <div className="flex items-center">
+          <LinearProgress
+            variant="determinate"
+            value={value}
+            sx={progressBarStyles}
+          />
+          <p className="ml-2">{value} hrs</p>
+        </div>
+
         <p>{eventTagName}</p>
       </Box>
     </div>
