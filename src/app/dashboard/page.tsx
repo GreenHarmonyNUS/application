@@ -107,7 +107,7 @@ const HomepageComponent = async () => {
           <h1 className="mb-2 text-2xl font-bold">Your Growth</h1>
           <h2 className="text-l mb-5 whitespace-pre-line">
             Your hard work has helped you grow...{"\n"}
-            Let&apos;s get 100 hours to be an expert!{"\n"}
+            Let&apos;s get to 100 hours to be an expert!{"\n"}
             Here&apos;s how far you&apos;ve come with us:{"\n"}
           </h2>
           {progression.map((prog) => (
