@@ -32,11 +32,11 @@ export default async function Home() {
         }}
       >
         <h1 className="mb-5 ml-5 mt-5 text-3xl font-bold text-white">
-          Welcome! Ready to grow?
+          Hi! Ready to grow?
         </h1>
         <h2 className="mb-2 ml-5 whitespace-pre-line text-xl text-white">
           Reconnect with nature and community.{"\n"}
-          Plant your seeds of change today.
+          Plant your seeds of growth with us!
         </h2>
       </div>
       <h2 className="mb-5 ml-5 mt-5 text-3xl font-bold">Our Events</h2>
