@@ -55,6 +55,19 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+  isRegistered: protectedProcedure
+    .input(z.object({ eventId: z.number(), userId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const { eventId, userId: participant } = input;
+      return ctx.db.eventRegistrations
+        .findUniqueOrThrow({
+          where: {
+            eventId_participant: { eventId, participant },
+          },
+        })
+        .then(() => true)
+        .catch(() => false);
+    }),
   create: protectedProcedure
     .input(EventCreateInputSchema)
     .mutation(async ({ input, ctx }) => {
