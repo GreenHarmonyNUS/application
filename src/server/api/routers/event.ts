@@ -46,7 +46,7 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
-  getPending: publicProcedure.query(({ ctx }) => {
+  getPending: protectedProcedure.query(({ ctx }) => {
     return ctx.db.event.findMany({
       where: { approvalStatus: "PENDING" },
       include: {
@@ -55,18 +55,25 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
-  isRegistered: protectedProcedure
-    .input(z.object({ eventId: z.number(), userId: z.string() }))
+  getSuggested: protectedProcedure
+    .input(z.object({ userId: z.string() }))
     .query(async ({ input, ctx }) => {
-      const { eventId, userId: participant } = input;
-      return ctx.db.eventRegistrations
-        .findUniqueOrThrow({
-          where: {
-            eventId_participant: { eventId, participant },
+      const { userId } = input;
+      if (!userId) return [];
+      const registeredEvents = await ctx.db.eventRegistrations.findMany({
+        where: { participant: userId },
+        select: { eventId: true },
+      });
+      return ctx.db.event.findMany({
+        where: {
+          NOT: {
+            eventLocationId: {
+              in: registeredEvents.map(({ eventId }) => eventId),
+            },
           },
-        })
-        .then(() => true)
-        .catch(() => false);
+        },
+        include: { location: true, tags: true },
+      });
     }),
   create: protectedProcedure
     .input(EventCreateInputSchema)
@@ -109,9 +116,4 @@ export const eventRouter = createTRPCRouter({
         data: hashtags.map((name) => ({ name, eventId })),
       });
     }),
-  delete: protectedProcedure.input(idSchema).mutation(({ input, ctx }) => {
-    const { id } = input;
-    // verify user role
-    return ctx.db.event.delete({ where: { id } });
-  }),
 });
