@@ -11,7 +11,6 @@ import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { VALID_EMAIL_REGEX } from "../_constants/valid-email";
 import Link from "next/link";
-import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
@@ -33,14 +32,7 @@ const LoginPage = () => {
     setEmail(event.target.value);
   };
 
-  const { data: isRegistered, refetch } = api.user.isRegistered.useQuery(email);
-
-  const handleSignInWithEmail = async () => {
-    return refetch().then(() => {
-      if (!isRegistered) router.push("/register");
-      return signIn("email");
-    });
-  };
+  const handleSignInWithEmail = async () => signIn("email", { email });
 
   return (
     <main className="mx-8 flex flex-col justify-around gap-4 py-32 md:mx-12 lg:mx-48 xl:px-72">
@@ -57,7 +49,7 @@ const LoginPage = () => {
           />
           {isEmailInvalid && (
             <FormHelperText id="email-error" error={isEmailInvalid}>
-              {isEmailInvalid ?? "This field is required."}
+              Email is invalid.
             </FormHelperText>
           )}
         </FormControl>

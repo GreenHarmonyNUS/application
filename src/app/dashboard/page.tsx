@@ -21,7 +21,7 @@ import { redirect } from "next/navigation";
 
 const HomepageComponent = async () => {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/api/auth/signin");
+  if (!session) redirect("/login");
   const registeredEvents: EventResponse[] =
     await api.eventRegistrations.getEventsByUser.query({
       userId: session.user.id,

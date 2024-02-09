@@ -8,7 +8,6 @@ import { env } from "~/env";
 import { db } from "~/server/db";
 import EmailProvider from "next-auth/providers/email";
 import { customSendVerificationRequest } from "./email-template";
-import { api } from "~/trpc/server";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,8 +44,11 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    async signIn({ user, account }) {
-      return api.user.isRegistered.query(user.email ?? "");
+    async signIn({ user }) {
+      if (user.id === user.email) {
+        return "/register";
+      }
+      return true;
     },
   },
   adapter: PrismaAdapter(db),
