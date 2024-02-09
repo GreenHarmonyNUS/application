@@ -1,13 +1,16 @@
 import React from "react";
 import { api } from "~/trpc/server";
 import { redirect } from "next/navigation";
-import { Box, Typography, CardMedia } from "@mui/material";
+import { Box, Typography, CardMedia, Button } from "@mui/material";
 import dayjs from "dayjs";
 import type { EventResponse } from "../../_types/event-response";
+import { getServerSession } from "next-auth";
+import { authOptions } from "~/server/auth";
 
 const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
   params,
 }) => {
+  const session = await getServerSession(authOptions);
   const { id } = params;
   const event: EventResponse | null = await api.event.getOne.query({
     id: Number(id),
@@ -56,9 +59,25 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
           </Typography>
         ))}
       </Box>
+      {/* Register Button */}
+      <Box className="mt-2">
+        {session && (
+          <Button
+            variant="contained"
+            href={`/events/${id}/register`}
+            color="success"
+          >
+            Register
+          </Button>
+        )}
+        {!session && (
+          <Button variant="contained" href={`/api/auth/signin`} color="success">
+            Register
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 };
 
 export default EventDetailsPage;
-export const dynamic = "force-dynamic";
