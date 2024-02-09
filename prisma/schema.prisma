@@ -23,6 +23,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
 
+  phone                  String?
   name                   String?
   gender                 String?
   image                  String?
@@ -32,7 +33,7 @@ model User {
   preferredCommunication String?
   preferredStartDate     DateTime?
   birthYear              Int?
-  residentialDistrict    Int?
+  residentialArea        Int?
   roles                  String[]
   skills                 Skill[]
 

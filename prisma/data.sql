@@ -1,5 +1,5 @@
 -- Insert queries for user data with CUID as id and random 8-digit phone numbers
-INSERT INTO "User" (id, email, name, gender, "maritalStatus", "volunteerStatus", "preferredName", "preferredCommunication", "preferredStartDate", "birthYear", "residentialDistrict", roles, "emergencyName", "emergencyRelationship", "emergencyPhone")
+INSERT INTO "User" (id, email, name, gender, "maritalStatus", "volunteerStatus", "preferredName", "preferredCommunication", "preferredStartDate", "birthYear", "residentialArea", roles, "emergencyName", "emergencyRelationship", "emergencyPhone")
 VALUES
   ('clsa56a7l000008l900esc196', 'user1@example.com', 'John Doe', 'Male', 'Single', 'Active', 'John', 'Telegram', '2024-01-01'::date, 1990, 1, '{"VOLUNTEER", "ORGANISER"}', 'Emergency Contact 1', 'Friend', floor(random() * 90000000 + 10000000)::TEXT),
   ('clsa4z0ms000008ky2vj3fo25', 'user2@example.com', 'Jane Smith', 'Female', 'Married', 'Inactive', 'Jane', 'WhatsApp', '2024-02-15'::date, 1985, 15, '{"ORGANISER"}', 'Emergency Contact 2', 'Spouse', floor(random() * 90000000 + 10000000)::TEXT),
