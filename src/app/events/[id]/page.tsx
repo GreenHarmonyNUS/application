@@ -37,7 +37,11 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
           objectFit: "cover",
           marginBottom: 2,
         }}
-        image={event.image ?? "/assets/default.jpg"}
+        src={
+          event.image
+            ? `${process.env.NEXTAUTH_URL}/${event.image}`
+            : "/assets/default.jpg"
+        }
         alt={event.name}
       />
       <Typography variant="h4" gutterBottom>
