@@ -23,7 +23,6 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
   const { id } = params;
   let isRegistered: boolean;
 
-  // prefer if-else to ternary for readability
   if (session == null) {
     isRegistered = false;
   } else {
@@ -32,9 +31,11 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
       userId: session?.user.id,
     });
   }
+
   const event: EventResponse | null = await api.event.getOne.query({
     id: Number(id),
   });
+
   if (!event) redirect("/events");
 
   return (
@@ -73,9 +74,24 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
             <strong>Duration:</strong> {event.duration} minutes
           </Typography>
 
-          <Typography variant="subtitle1" gutterBottom>
-            <strong>Location:</strong> {event.location.name}
-          </Typography>
+          <Grid container alignItems="center" spacing={1}>
+            <Grid item>
+              <Typography variant="subtitle1" gutterBottom>
+                <strong>Location:</strong> {event.location.name}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                target="_blank"
+                href={`https://www.google.com/maps?q=${event.location.latitude},${event.location.longitude}`}
+                color="primary"
+                size="small"
+              >
+                View on Google Maps
+              </Button>
+            </Grid>
+          </Grid>
 
           <Divider sx={{ my: 2 }} />
 
@@ -94,9 +110,8 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
             </Box>
           </Box>
 
-          {/* Register Button */}
-          <Box className="mt-2">
-            {/* Three cases, logged in (and registered, !registered) and not logged in  */}
+          {/* Adjusted layout for register buttons */}
+          <Box sx={{ mt: 2 }}>
             {session && !isRegistered && (
               <Button
                 variant="contained"
