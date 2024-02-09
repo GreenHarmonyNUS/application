@@ -49,6 +49,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
             message: "Please enter a valid email address",
           },
         }}
+        className="pb-4"
       />
 
       <InputField
@@ -61,27 +62,32 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
             message: "Please enter a valid 8-digit phone number",
           },
         }}
+        className="pb-4"
       />
 
-      <InputField
-        label="Name"
-        control={control}
-        validation={{
-          required: true,
-          minLength: { value: 2, message: "Name is too short!" },
-          maxLength: { value: 50, message: "Name is too long!" },
-        }}
-      />
+      <div className="flex gap-4 pb-4">
+        <InputField
+          label="Name"
+          control={control}
+          validation={{
+            required: true,
+            minLength: { value: 2, message: "Name is too short!" },
+            maxLength: { value: 50, message: "Name is too long!" },
+          }}
+          className="grow"
+        />
 
-      <InputField
-        label="Preferred Name"
-        control={control}
-        validation={{
-          required: true,
-          minLength: { value: 2, message: "Preferred name is too short!" },
-          maxLength: { value: 50, message: "Preferred name is too long!" },
-        }}
-      />
+        <InputField
+          label="Preferred Name"
+          control={control}
+          validation={{
+            required: true,
+            minLength: { value: 2, message: "Preferred name is too short!" },
+            maxLength: { value: 50, message: "Preferred name is too long!" },
+          }}
+          className="grow"
+        />
+      </div>
 
       <SelectField
         label="Birth year"
@@ -91,6 +97,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           new Date().getFullYear() - 100,
           -1,
         ).map((year) => ({ label: String(year), value: year }))}
+        className="pb-4"
       />
 
       <SelectField
@@ -100,6 +107,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           label,
           value,
         }))}
+        className="pb-4"
       />
 
       <SelectField
@@ -109,6 +117,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           label,
           value,
         }))}
+        className="pb-4"
       />
 
       <SelectField
@@ -118,6 +127,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           label,
           value,
         }))}
+        className="pb-4"
       />
 
       <SelectField
@@ -128,6 +138,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           value,
         }))}
         multiple={true}
+        className="pb-4"
       />
 
       <SelectField
@@ -137,6 +148,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           label,
           value,
         }))}
+        className="pb-4"
       />
 
       <InputField
@@ -149,6 +161,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
             dayjs(date, "YYYY-MM-DD").isAfter(new Date(), "day") ||
             "Start date should be in the future.",
         }}
+        className="pb-4"
       />
 
       <SelectField
@@ -157,6 +170,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
         options={Object.entries(PreferredCommunication).map(
           ([label, value]) => ({ label, value }),
         )}
+        className="pb-4"
       />
 
       <InputField
@@ -167,6 +181,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
           minLength: { value: 2, message: "Name is too short!" },
           maxLength: { value: 50, message: "Name is too long!" },
         }}
+        className="pb-4"
       />
 
       <SelectField
@@ -178,6 +193,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
             value,
           }),
         )}
+        className="pb-4"
       />
 
       <InputField
@@ -190,11 +206,14 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
             message: "Please enter a valid 8-digit phone number",
           },
         }}
+        className="pb-4"
       />
 
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
+      <div className="px-2">
+        <Button type="submit" variant="contained" className="pt-4">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 };
