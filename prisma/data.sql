@@ -14,7 +14,7 @@ VALUES
   (1, 'Singapore Botanic Gardens', 1.3147, 103.8159, 'A UNESCO World Heritage Site, offering lush greenery and a serene environment for nature lovers.'),
   (2, 'Marina Barrage', 1.2806, 103.8703, 'A reservoir in the heart of the city providing sustainable water supply and a venue for outdoor activities.'),
   (3, 'HortPark', 1.2787, 103.7995, 'A gardening hub that combines recreational gardening with education in a green space.'),
-  (4, 'The [email protected]', 1.2823, 103.863, 'A community space that fosters creativity and innovation, with a focus on sustainable living.'),
+  (4, 'Malay Garden', 1.2823, 103.863, 'A community space that fosters creativity and innovation, with a focus on sustainable living.'),
   (5, 'East Coast Park', 1.3004, 103.9125, 'A scenic coastline park that offers leisure activities while promoting environmental conservation.'),
   (6, 'Library @ Esplanade', 1.2899, 103.8558, 'A resource hub for arts and culture with a commitment to sustainability and education.'),
   (7, 'Green Roof @ Marina Bay Sands', 1.2844, 103.8607, 'An iconic rooftop that showcases innovative sustainable design and urban greenery.'),
