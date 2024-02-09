@@ -38,11 +38,13 @@ const SelectField = ({
       <Controller
         name={camelCase(label)}
         control={control}
-        defaultValue={options[0]?.value}
+        defaultValue={[]}
         render={({ field, fieldState }) => {
           return (
             <FormControl fullWidth sx={{ m: 1 }}>
-              <InputLabel htmlFor={camelCase(label)}>{label}</InputLabel>
+              <InputLabel htmlFor={camelCase(label)} shrink>
+                {label}
+              </InputLabel>
               <Select
                 id={camelCase(label)}
                 label={label}
@@ -51,14 +53,14 @@ const SelectField = ({
                 multiple={multiple ?? false}
                 {...(multiple && {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  renderValue: (selected: Array<any>) => selected.join(","),
+                  renderValue: (selected: Array<any>) => selected.join(", "),
                 })}
                 {...field}
               >
                 {options.map((option) => {
                   return (
-                    <MenuItem key={nanoid()} value={option.value}>
-                      <ListItemText primary={option.label} />
+                    <MenuItem key={nanoid()} value={option.label}>
+                      <ListItemText primary={option.value} />
                     </MenuItem>
                   );
                 })}

@@ -22,7 +22,8 @@ model User {
   id            String    @id @default(cuid()) @db.VarChar(30)
   email         String    @unique
   emailVerified DateTime?
-  phone String?
+
+  phone                  String?
   name                   String?
   gender                 String?
   image                  String?
