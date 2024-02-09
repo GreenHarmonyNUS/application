@@ -1,20 +1,32 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { EventRegistrationsSchema } from "prisma/generated/zod";
 
 const idSchema = z.object({ eventId: z.number(), participant: z.string() });
 
 export const eventRegistrationsRouter = createTRPCRouter({
-  getOne: publicProcedure.input(idSchema).query(({ input, ctx }) => {
+  getOne: protectedProcedure.input(idSchema).query(({ input, ctx }) => {
     const { eventId, participant } = input;
     return ctx.db.eventRegistrations.findUnique({
       where: { eventId_participant: { eventId, participant } },
     });
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
+  getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.db.eventRegistrations.findMany();
   }),
-  create: publicProcedure
+  getEventsByUser: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(({ input, ctx }) => {
+      const { userId: participant } = input;
+      if (!participant) return [];
+      return ctx.db.eventRegistrations
+        .findMany({
+          where: { participant },
+          include: { event: { include: { location: true, tags: true } } },
+        })
+        .then((data) => data.map(({ event }) => event));
+    }),
+  create: protectedProcedure
     .input(EventRegistrationsSchema)
     .mutation(({ input, ctx }) => {
       return ctx.db.eventRegistrations.create({

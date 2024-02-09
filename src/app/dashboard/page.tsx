@@ -15,10 +15,23 @@ import ProgressionBlock, {
 } from "./components/progression-block";
 import type { EventResponse } from "../_types/event-response";
 import { api } from "~/trpc/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "~/server/auth";
+import { redirect } from "next/navigation";
 
 const HomepageComponent = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session) redirect("/auth/signin");
+  const registeredEvents: EventResponse[] =
+    await api.eventRegistrations.getEventsByUser.query({
+      userId: session.user.id,
+    });
+
+  const suggestedEvents = await api.event.getSuggested.query({
+    userId: session.user.id,
+  });
+
   // TODO: Get these data programatically
-  const user = "Keith Chua";
   const metrics = [metricDummyBottles, metricDummyCans, metricDummyCompost];
   const top3_UNSDG = [metricGoal2, metricGoal12, metricGoal13];
   const progression = [
@@ -27,29 +40,31 @@ const HomepageComponent = async () => {
     progressionDummyHandicraft,
   ];
 
-  const eventData: EventResponse[] = await api.event.getAll.query();
-
-  console.log(eventData);
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Welcome splash text and events */}
       <div className="mt-5" style={{ maxWidth: "80vw" }}>
         {/* Welcome splash text */}
         <h1 className="text-3xl font-bold">Welcome back,</h1>
-        <h3 className="mb-5 mt-2 text-2xl">{user}</h3>
+        <h3 className="mb-5 mt-2 text-2xl">{session.user.name}</h3>
 
         {/* Your Events */}
-        <h1 className="text-2xl font-bold">Your Events</h1>
-        <div className="carou-cont flex items-center justify-center">
-          <div className="flex-column mb-5 flex max-w-screen-xl items-center overflow-auto">
-            {eventData.map((event) => (
-              <div key={event.id} className="m-5">
-                <EventCard {...event} />
-              </div>
-            ))}
-            {/* Additional EventCard components if needed */}
+        <div className="mb-5">
+          <h1 className="text-2xl font-bold">
+            {registeredEvents.length > 0 ? "Your Events" : "Suggested Events"}
+          </h1>
+          <div className="carou-cont flex items-center justify-center">
+            <div className="flex-column mb-5 flex max-w-screen-xl items-center overflow-auto">
+              {(registeredEvents.length > 0
+                ? registeredEvents
+                : suggestedEvents
+              ).map((event) => (
+                <div key={event.id} className="m-5">
+                  <EventCard {...event} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mb-5"></div>
         </div>
       </div>
 

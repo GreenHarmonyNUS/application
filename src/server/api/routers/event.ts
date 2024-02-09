@@ -68,6 +68,26 @@ export const eventRouter = createTRPCRouter({
         .then(() => true)
         .catch(() => false);
     }),
+  getSuggested: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const { userId } = input;
+      if (!userId) return [];
+      const registeredEvents = await ctx.db.eventRegistrations.findMany({
+        where: { participant: userId },
+        select: { eventId: true },
+      });
+      return ctx.db.event.findMany({
+        where: {
+          NOT: {
+            eventLocationId: {
+              in: registeredEvents.map(({ eventId }) => eventId),
+            },
+          },
+        },
+        include: { location: true, tags: true },
+      });
+    }),
   create: protectedProcedure
     .input(EventCreateInputSchema)
     .mutation(async ({ input, ctx }) => {
