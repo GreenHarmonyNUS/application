@@ -46,7 +46,7 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
-  getPending: publicProcedure.query(({ ctx }) => {
+  getPending: protectedProcedure.query(({ ctx }) => {
     return ctx.db.event.findMany({
       where: { approvalStatus: "PENDING" },
       include: {
@@ -116,9 +116,4 @@ export const eventRouter = createTRPCRouter({
         data: hashtags.map((name) => ({ name, eventId })),
       });
     }),
-  delete: protectedProcedure.input(idSchema).mutation(({ input, ctx }) => {
-    const { id } = input;
-    // verify user role
-    return ctx.db.event.delete({ where: { id } });
-  }),
 });
