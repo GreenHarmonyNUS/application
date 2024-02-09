@@ -19,6 +19,7 @@ const LoginPage = () => {
   if (status === "authenticated") router.push("/");
 
   const [email, setEmail] = useState<string>("");
+  const [touched, setTouched] = useState<boolean>(false);
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean>(true);
   const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -29,6 +30,7 @@ const LoginPage = () => {
     } else {
       setIsEmailInvalid(false);
     }
+    setTouched(true);
     setEmail(event.target.value);
   };
 
@@ -47,7 +49,7 @@ const LoginPage = () => {
             value={email}
             onChange={onEmailChange}
           />
-          {isEmailInvalid && (
+          {touched && isEmailInvalid && (
             <FormHelperText id="email-error" error={isEmailInvalid}>
               Email is invalid.
             </FormHelperText>
