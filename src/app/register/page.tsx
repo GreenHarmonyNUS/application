@@ -4,13 +4,12 @@ import CreateUserForm from "./_components/CreateUserForm";
 import type { CreateUserInputs } from "./_components/CreateUserForm";
 import { api } from "~/trpc/react";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const NewUserPage = () => {
-  const router = useRouter();
   const createUserMutation = api.user.create.useMutation();
 
-  const onCreateUser: SubmitHandler<CreateUserInputs> = (
+  const onCreateUser: SubmitHandler<CreateUserInputs> = async (
     user: CreateUserInputs,
   ) => {
     const {
@@ -55,7 +54,7 @@ const NewUserPage = () => {
       emergencyPhone,
     });
 
-    router.push("/dashboard");
+    return signIn("email", { email });
   };
 
   return (
