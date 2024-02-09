@@ -80,11 +80,11 @@ const EventCard: React.FC<EventCardProps> = ({
       <Link href={eventDetailsUrl} passHref>
         <Card
           sx={{
-            minWidth: 200, // Ensures a minimum width
+            minWidth: 250, // Ensures a minimum width
             width: "100%", // Allows the card to grow
             m: 0.5,
             height: "auto", // Adjusts height based on content
-            minHeight: 400,
+            minHeight: 480,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
