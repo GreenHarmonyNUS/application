@@ -6,9 +6,9 @@ import {
 } from "next-auth";
 import { env } from "~/env";
 import { db } from "~/server/db";
-import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { customSendVerificationRequest } from "./email-template";
+import { api } from "~/trpc/server";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,25 +45,22 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    async signIn({ user }) {
-      if (user.id === user.email) {
-        return "/register";
-      }
-      return true;
+    async signIn({ user, account }) {
+      return api.user.isRegistered.query(user.email ?? "");
     },
   },
   adapter: PrismaAdapter(db),
   providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    }),
     EmailProvider({
       server: env.EMAIL_SERVER,
       from: env.EMAIL_FROM,
       sendVerificationRequest: customSendVerificationRequest,
     }),
   ],
+  pages: {
+    signIn: "/login",
+    error: "/login/error",
+  },
 };
 
 /**

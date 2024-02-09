@@ -39,4 +39,15 @@ export const eventRegistrationsRouter = createTRPCRouter({
         .then(() => true)
         .catch(() => false);
     }),
+  create: protectedProcedure
+    .input(z.object({ eventId: z.number(), participant: z.string() }))
+    .mutation(({ input, ctx }) => {
+      const { eventId, participant } = input;
+      return ctx.db.eventRegistrations.create({
+        data: {
+          eventId,
+          participant,
+        },
+      });
+    }),
 });

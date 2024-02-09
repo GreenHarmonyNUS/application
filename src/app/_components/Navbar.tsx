@@ -44,7 +44,7 @@ const Navbar = () => {
           </li>
         ))}
         <li className="nav-links link-underline cursor-pointer px-4 font-medium capitalize text-gray-200 duration-200 hover:scale-105 hover:text-white">
-          <Link href={isLoggedIn ? "/api/auth/signout" : "/api/auth/signin"}>
+          <Link href={isLoggedIn ? "/api/auth/signout" : "/login"}>
             {isLoggedIn ? "Log Out" : "Log In"}
           </Link>
         </li>
@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
           ))}
           <li className="cursor-pointer px-4 py-6 text-2xl capitalize">
-            <Link href={isLoggedIn ? "/api/auth/signout" : "/api/auth/signin"}>
+            <Link href={isLoggedIn ? "/api/auth/signout" : "/login"}>
               {isLoggedIn ? "Log Out" : "Log In"}
             </Link>
           </li>

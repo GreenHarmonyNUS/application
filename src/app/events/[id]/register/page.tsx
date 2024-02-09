@@ -9,7 +9,7 @@ const EventRegister = async ({ params }: { params: { id: string } }) => {
 
   // Guard clauses
   if (!session) redirect(`/events/${eventId}`);
-  const isRegistered = await api.event.isRegistered.query({
+  const isRegistered = await api.eventRegistrations.isRegistered.query({
     eventId: Number(eventId),
     userId: session?.user.id,
   });

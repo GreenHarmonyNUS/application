@@ -20,7 +20,7 @@ export type CreateUserInputs = {
   birthYear: string;
   gender: string;
   maritalStatus: string;
-  residentialDistrict: number;
+  residentialArea: string;
   skills: string[];
   volunteerStatus: string;
   preferredStartDate: Date;
@@ -133,8 +133,8 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
       <SelectField
         label="Skills"
         control={control}
-        options={Object.entries(UserSkills).map(([label, value]) => ({
-          label,
+        options={Object.entries(UserSkills).map(([_, value]) => ({
+          label: value,
           value,
         }))}
         multiple={true}

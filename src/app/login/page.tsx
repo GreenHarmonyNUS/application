@@ -3,18 +3,22 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  Input,
   InputLabel,
   OutlinedInput,
 } from "@mui/material";
-import { signIn } from "next-auth/react";
-import Image from "next/image";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { VALID_EMAIL_REGEX } from "../_constants/valid-email";
 import Link from "next/link";
+import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const { status } = useSession();
+  if (status === "authenticated") router.push("/");
+
   const [email, setEmail] = useState<string>("");
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean>(true);
   const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,22 +33,17 @@ const LoginPage = () => {
     setEmail(event.target.value);
   };
 
+  const { data: isRegistered, refetch } = api.user.isRegistered.useQuery(email);
+
   const handleSignInWithEmail = async () => {
-    await signIn("email", { email });
+    return refetch().then(() => {
+      if (!isRegistered) router.push("/register");
+      return signIn("email");
+    });
   };
 
   return (
     <main className="mx-8 flex flex-col justify-around gap-4 py-32 md:mx-12 lg:mx-48 xl:px-72">
-      <Image
-        src="/assets/web_light_sq_SI.svg"
-        height="50"
-        width="250"
-        alt="Sign In with Google"
-        onClick={() => signIn("google")}
-        className="mx-auto cursor-pointer"
-      />
-      <hr />
-
       <div className="text-center">
         <FormControl fullWidth sx={{ m: 1 }}>
           <InputLabel htmlFor="email" shrink>

@@ -33,7 +33,7 @@ model User {
   preferredCommunication String?
   preferredStartDate     DateTime?
   birthYear              Int?
-  residentialDistrict    Int?
+  residentialArea        Int?
   roles                  String[]
   skills                 Skill[]
 
