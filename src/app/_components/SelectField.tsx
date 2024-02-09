@@ -2,8 +2,8 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
+  ListItemText,
   MenuItem,
-  OutlinedInput,
   Select,
 } from "@mui/material";
 import { camelCase } from "lodash";
@@ -23,6 +23,7 @@ export interface SelectFieldProps {
   errorMessage?: string;
   className?: string;
   options: SelectOption[];
+  multiple?: boolean;
 }
 
 const SelectField = ({
@@ -30,6 +31,7 @@ const SelectField = ({
   label,
   className,
   options,
+  multiple,
 }: SelectFieldProps) => {
   return (
     <div className={className ?? ""}>
@@ -44,14 +46,19 @@ const SelectField = ({
               <Select
                 id={camelCase(label)}
                 label={label}
-                defaultValue={options[0]?.value}
+                defaultValue={[]}
                 fullWidth
+                multiple={multiple ?? false}
+                {...(multiple && {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  renderValue: (selected: Array<any>) => selected.join(","),
+                })}
                 {...field}
               >
                 {options.map((option) => {
                   return (
                     <MenuItem key={nanoid()} value={option.value}>
-                      {option.label}
+                      <ListItemText primary={option.label} />
                     </MenuItem>
                   );
                 })}
