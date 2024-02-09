@@ -12,6 +12,17 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
 }) => {
   const session = await getServerSession(authOptions);
   const { id } = params;
+  let isRegistered: boolean;
+
+  // prefer if-else to ternary for readability
+  if (session == null) {
+    isRegistered = false;
+  } else {
+    isRegistered = await api.event.isRegistered.query({
+      eventId: Number(id),
+      userId: session?.user.id,
+    });
+  }
   const event: EventResponse | null = await api.event.getOne.query({
     id: Number(id),
   });
@@ -61,13 +72,19 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
       </Box>
       {/* Register Button */}
       <Box className="mt-2">
-        {session && (
+        {/* Three cases, logged in (and registered, !registered) and not logged in  */}
+        {session && !isRegistered && (
           <Button
             variant="contained"
             href={`/events/${id}/register`}
             color="success"
           >
             Register
+          </Button>
+        )}
+        {session && isRegistered && (
+          <Button variant="contained" disabled>
+            Registered
           </Button>
         )}
         {!session && (
