@@ -84,6 +84,7 @@ const EventCard: React.FC<EventCardProps> = ({
             width: "100%", // Allows the card to grow
             m: 0.5,
             height: "auto", // Adjusts height based on content
+            minHeight: 400,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
