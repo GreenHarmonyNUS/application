@@ -8,57 +8,56 @@ VALUES
   ('clsa4zi91000408kydp08ctji', 'user5@example.com', 'Michael Brown', 'Male', 'Married', 'Active', 'Michael', 'WhatsApp', '2024-05-25'::date, 1975, 25, '{"ORGANISER"}', 'Emergency Contact 5', 'Spouse', floor(random() * 90000000 + 10000000)::TEXT),
   ('clsa4zmiz000508kyc7wu0dq3', 'user6@example.com', 'Olivia Miller', 'Female', 'Divorced', 'Inactive', 'Olivia', 'Email', '2024-06-05'::date, 1992, 18, '{"PARTICIPANT"}', 'Emergency Contact 6', 'Sibling', floor(random() * 90000000 + 10000000)::TEXT);
 
-
 -- Insert queries for eventLocationData
 INSERT INTO "EventLocation" (id, name, latitude, longitude, description)
 VALUES
-  (1, 'Central Park', 40.7829, -73.9654, 'A beautiful park in the heart of New York City.'),
-  (2, 'Innovation Hub', 37.7749, -122.4194, 'A center for technological innovation and collaboration.'),
-  (3, 'Downtown', 40.7128, -74.006, 'The bustling downtown area with a mix of culture and commerce.'),
-  (4, 'Art Gallery', 40.7421, -74.006, 'An elegant space showcasing diverse and inspiring artworks.'),
-  (5, 'Community Park', 40.7282, -74.0776, 'A community gathering spot surrounded by greenery and nature.'),
-  (6, 'City Library', 40.7549, -73.984, 'A haven for book lovers, offering a vast collection of literary treasures.'),
-  (7, 'Eco Center', 40.7128, -74.006, 'A hub for promoting and practicing sustainable living.'),
-  (8, 'Lincoln Street', 40.7899, -73.9514, 'A vibrant neighborhood street known for its friendly community atmosphere.');
+  (1, 'Singapore Botanic Gardens', 1.3147, 103.8159, 'A UNESCO World Heritage Site, offering lush greenery and a serene environment for nature lovers.'),
+  (2, 'Marina Barrage', 1.2806, 103.8703, 'A reservoir in the heart of the city providing sustainable water supply and a venue for outdoor activities.'),
+  (3, 'HortPark', 1.2787, 103.7995, 'A gardening hub that combines recreational gardening with education in a green space.'),
+  (4, 'The [email protected]', 1.2823, 103.863, 'A community space that fosters creativity and innovation, with a focus on sustainable living.'),
+  (5, 'East Coast Park', 1.3004, 103.9125, 'A scenic coastline park that offers leisure activities while promoting environmental conservation.'),
+  (6, 'Library @ Esplanade', 1.2899, 103.8558, 'A resource hub for arts and culture with a commitment to sustainability and education.'),
+  (7, 'Green Roof @ Marina Bay Sands', 1.2844, 103.8607, 'An iconic rooftop that showcases innovative sustainable design and urban greenery.'),
+  (8, 'Pulau Ubin', 1.4129, 103.9578, 'An island northeast of mainland Singapore, known for its rich natural ecosystems and commitment to preserving traditional ways of life.');
 
 -- Insert queries for events
 INSERT INTO "Event" (id, name, "approvalStatus", timestamp, duration, "eventLocationId", image, "userId", details)
 VALUES
-  (1, 'Community Clean-Up', 'APPROVED', '2024-07-20'::date, 2, 1, '/assets/cleanup-event.jpeg', 'clsa56a7l000008l900esc196', 'Join us in making a positive impact on our environment by participating in the Community Clean-Up event at Central Park. Bring your enthusiasm and commitment to create a cleaner and greener space for everyone. Together, we can make a difference!'),
-  (2, 'Tech for Good Workshop', 'APPROVED', '2024-08-15'::date, 3, 2, '/assets/tech-workshop.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Explore the intersection of technology and social good at our Tech for Good Workshop. Engage in hands-on activities, learn from industry experts, and discover how technology can be a force for positive change. Open to all tech enthusiasts and those curious about the transformative power of innovation.'),
-  (3, 'City Marathon', 'APPROVED', '2024-09-05'::date, 1, 3, '/assets/city-marathon.jpeg', 'clsa4zi91000408kydp08ctji', 'Lace up your running shoes and join the City Marathon! Whether you\''re a seasoned runner or just starting, this event promotes health, community spirit, and a love for an active lifestyle. Run through the heart of downtown and be part of the energy that fuels this exhilarating event.'),
-  (4, 'Art for Charity', 'APPROVED', '2023-10-10'::date, 2, 4, '/assets/art-charity.jpeg', 'clsa56a7l000008l900esc196', 'Immerse yourself in the world of creativity and philanthropy at the Art for Charity event. Explore exquisite artworks, participate in a charity auction, and support meaningful causes. Art lovers and charity enthusiasts alike, this is an opportunity to celebrate the beauty of giving back.'),
-  (5, 'Local Farmers Market', 'APPROVED', '2024-03-15'::date, 2, 5, '/assets/farmers-market.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Experience the freshness of locally sourced produce at the Local Farmers Market in Community Park. Engage with local farmers, discover sustainable food options, and enjoy a vibrant atmosphere that celebrates community and healthy living.'),
-  (6, 'Annual Book Fair', 'APPROVED', '2024-05-20'::date, 4, 6, '/assets/book-fair.jpeg', 'clsa4zi91000408kydp08ctji', 'Dive into the world of literature at the Annual Book Fair held at the City Library. Explore a vast collection of books, engage in literary discussions, and celebrate the joy of reading. This event is a haven for book enthusiasts and those eager to expand their literary horizons.'),
-  (7, 'Eco Living Workshop', 'APPROVED', '2024-06-10'::date, 3, 7, '/assets/eco-workshop.jpeg', 'clsa56a7l000008l900esc196', 'Embrace a sustainable lifestyle at the Eco Living Workshop. Gain insights into eco-friendly practices, participate in interactive sessions, and learn how to integrate sustainability into your daily life. Join us in fostering a greener and more mindful community.'),
-  (8, 'Neighborhood Block Party', 'APPROVED', '2024-08-30'::date, 3, 8, '/assets/block-party.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Celebrate the spirit of community at the Neighborhood Block Party on Lincoln Street. Enjoy live music, savor delicious local food, and connect with neighbors in a festive atmosphere. This event promises to be a lively gathering, fostering a sense of belonging and camaraderie.');
+  (1, 'Botanic Gardens Clean-Up', 'APPROVED', '2024-07-20'::date, 2, 1, '/assets/botanic-cleanup.jpeg', 'clsa56a7l000008l900esc196', 'Join us at the Singapore Botanic Gardens for a day of clean-up to maintain the beauty and serenity of this UNESCO heritage site. Volunteers will help in litter picking, weeding, and other maintenance tasks.'),
+  (2, 'Sustainable Living Fair', 'APPROVED', '2024-08-15'::date, 3, 2, '/assets/sustainable-fair.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Discover sustainable living practices at Marina Barrage. This fair features workshops on upcycling, eco-friendly products, and talks by sustainability experts.'),
+  (3, 'Urban Gardening Workshop', 'APPROVED', '2024-09-05'::date, 1, 3, '/assets/gardening-workshop.jpeg', 'clsa4zi91000408kydp08ctji', 'Learn about urban gardening and sustainable horticulture at HortPark. This workshop covers composting, planting techniques, and how to grow your own food in small spaces.'),
+  (4, 'Eco-Art Festival', 'APPROVED', '2024-10-10'::date, 2, 4, '/assets/eco-art-festival.jpeg', 'clsa56a7l000008l900esc196', 'Explore the intersection of art and sustainability at The [email protected] This festival showcases eco-friendly art installations and workshops on creating art from recycled materials.'),
+  (5, 'Coastal Clean-Up Drive', 'APPROVED', '2024-03-15'::date, 2, 5, '/assets/coastal-cleanup.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Participate in a coastal clean-up at East Coast Park to help protect marine life and maintain clean beaches. A great way to contribute to environmental preservation.'),
+  (6, 'Green Reads Book Club', 'APPROVED', '2024-05-20'::date, 4, 6, '/assets/green-reads.jpeg', 'clsa4zi91000408kydp08ctji', 'Join our book club at Library @ Esplanade, focusing on literature that inspires sustainable living, environmental protection, and awareness.'),
+  (7, 'Innovations in Sustainability', 'APPROVED', '2024-06-10'::date, 3, 7, '/assets/sustainability-innovation.jpeg', 'clsa56a7l000008l900esc196', 'Learn about the latest in sustainable design and green technologies on the Green Roof @ Marina Bay Sands. This event includes tours, talks, and showcases of innovative projects.'),
+  (8, 'Pulau Ubin Eco Adventure', 'APPROVED', '2024-08-30'::date, 3, 8, '/assets/eco-adventure-ubin.jpeg', 'clsa4z0ms000008ky2vj3fo25', 'Experience the rich biodiversity of Pulau Ubin with guided eco-tours. Learn about conservation efforts and the island’s unique ecosystem.');
 
 -- Insert queries for event_tags
 INSERT INTO "EventTag" (name, "eventId") VALUES
   ('environment', 1),
   ('volunteer', 1),
   ('cleanup', 1),
-  ('technology', 2),
-  ('workshop', 2),
+  ('sustainability', 2),
+  ('upcycling', 2),
   ('education', 2),
-  ('health', 3),
-  ('running', 3),
-  ('community', 3),
-  ('art', 4),
-  ('charity', 4),
-  ('auction', 4),
-  ('local', 5),
-  ('food', 5),
-  ('sustainability', 5),
-  ('books', 6),
+  ('gardening', 3),
+  ('sustainability', 3),
+  ('workshop', 3),
+  ('eco-art', 4),
+  ('sustainability', 4),
+  ('workshop', 4),
+  ('cleanup', 5),
+  ('marine conservation', 5),
+  ('environment', 5),
+  ('sustainability', 6),
+  ('reading', 6),
   ('education', 6),
-  ('community', 6),
+  ('innovation', 7),
   ('sustainability', 7),
-  ('workshop', 7),
-  ('lifestyle', 7),
-  ('community', 8),
-  ('music', 8),
-  ('food', 8);
+  ('technology', 7),
+  ('conservation', 8),
+  ('adventure', 8),
+  ('education', 8);
 
 INSERT INTO "EventRegistrations" ("eventId", participant)
 VALUES 
