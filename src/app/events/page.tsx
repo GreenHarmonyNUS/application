@@ -8,9 +8,11 @@ import { authOptions } from "~/server/auth";
 
 const MyEventsPage = async () => {
   const session = await getServerSession(authOptions);
-  const suggestedEvents = await api.event.getSuggested.query({
-    userId: session?.user.id ?? "",
-  });
+  const suggestedEvents = session
+    ? await api.event.getSuggested.query({
+        userId: session.user.id,
+      })
+    : [];
   const eventData: EventResponse[] = await api.event.getAll.query();
 
   return (
