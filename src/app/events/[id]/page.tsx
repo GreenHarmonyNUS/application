@@ -21,16 +21,12 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
 }) => {
   const session = await getServerSession(authOptions);
   const { id } = params;
-  let isRegistered: boolean;
-
-  if (session == null) {
-    isRegistered = false;
-  } else {
-    isRegistered = await api.event.isRegistered.query({
+  const isRegistered =
+    session &&
+    (await api.eventRegistrations.isRegistered.query({
       eventId: Number(id),
       userId: session?.user.id,
-    });
-  }
+    }));
 
   const event: EventResponse | null = await api.event.getOne.query({
     id: Number(id),
