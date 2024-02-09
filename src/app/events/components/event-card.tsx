@@ -24,10 +24,10 @@ const EventCard: React.FC<EventCardProps> = ({
   image,
   minimal = false,
 }) => {
-  const eventDetailsUrl = `/events/${id}`; // Construct URL for the event details page
-  // Conditionally render different layouts based on the `minimal` prop
+  const eventDetailsUrl = `/events/${id}`;
+
   if (minimal) {
-    // Minimal card layout with a Link wrapper
+    // Original minimal card layout
     return (
       <Link href={eventDetailsUrl} passHref>
         <Card
@@ -38,7 +38,7 @@ const EventCard: React.FC<EventCardProps> = ({
             m: 2,
             height: 300, // Fixed height for minimal cards
             position: "relative",
-            cursor: "pointer", // Makes it clear the card is clickable
+            cursor: "pointer",
           }}
         >
           <CardActionArea sx={{ height: "100%", position: "relative" }}>
@@ -52,7 +52,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 height: "100%",
                 objectFit: "cover",
               }}
-              image={image ?? "/default-event-image.jpg"} // Fallback for missing images
+              image={image ?? "/default-event-image.jpg"}
               alt={name}
             />
             <Box
@@ -61,7 +61,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 bottom: 0,
                 left: 0,
                 width: "100%",
-                bgcolor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for better readability
+                bgcolor: "rgba(0, 0, 0, 0.5)",
                 color: "white",
                 padding: "8px",
               }}
@@ -75,27 +75,27 @@ const EventCard: React.FC<EventCardProps> = ({
       </Link>
     );
   } else {
-    // Standard card layout with fixed height for non-minimal cards
+    // Adjusted non-minimal card layout for responsiveness
     return (
       <Link href={eventDetailsUrl} passHref>
         <Card
           sx={{
-            minWidth: 200,
-            maxWidth: 345,
-            width: "100%",
+            minWidth: 200, // Ensures a minimum width
+            width: "100%", // Allows the card to grow
             m: 0.5,
-            height: 400, // Standardized height for non-minimal cards
+            height: "auto", // Adjusts height based on content
+            minHeight: 400,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            cursor: "pointer", // Makes it clear the card is clickable
+            cursor: "pointer",
           }}
         >
           <CardActionArea>
             <CardMedia
               component="img"
-              height="140"
-              image={image ?? "/assets/default.jpg"} // Fallback for missing images
+              height="140" // Maintains a fixed height for consistency
+              image={image ?? "/assets/default.jpg"}
               alt={name}
               sx={{
                 objectFit: "cover",
