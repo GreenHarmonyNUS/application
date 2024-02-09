@@ -12,11 +12,25 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import type { EventResponse } from "../../_types/event-response";
+import { getServerSession } from "next-auth";
+import { authOptions } from "~/server/auth";
 
 const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
   params,
 }) => {
+  const session = await getServerSession(authOptions);
   const { id } = params;
+  let isRegistered: boolean;
+
+  // prefer if-else to ternary for readability
+  if (session == null) {
+    isRegistered = false;
+  } else {
+    isRegistered = await api.event.isRegistered.query({
+      eventId: Number(id),
+      userId: session?.user.id,
+    });
+  }
   const event: EventResponse | null = await api.event.getOne.query({
     id: Number(id),
   });
@@ -30,11 +44,19 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CardMedia
-            component="img"
-            sx={{ width: "100%", height: "auto" }}
-            image={event.image ?? "/assets/default.jpg"}
-            alt={event.name}
-          />
+        component="img"
+        sx={{
+          height: 400,
+          objectFit: "cover",
+          marginBottom: 2,
+        }}
+        src={
+          event.image
+            ? `${process.env.NEXTAUTH_URL}/${event.image}`
+            : "/assets/default.jpg"
+        }
+        alt={event.name}
+      />
         </Grid>
         <Grid item xs={12} sm={12}>
           <Typography variant="h4" component="h2" gutterBottom>
@@ -70,6 +92,30 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
               ))}
             </Box>
           </Box>
+          
+          {/* Register Button */}
+      <Box className="mt-2">
+        {/* Three cases, logged in (and registered, !registered) and not logged in  */}
+        {session && !isRegistered && (
+          <Button
+            variant="contained"
+            href={`/events/${id}/register`}
+            color="success"
+          >
+            Register
+          </Button>
+        )}
+        {session && isRegistered && (
+          <Button variant="contained" disabled>
+            Registered
+          </Button>
+        )}
+        {!session && (
+          <Button variant="contained" href={`/api/auth/signin`} color="success">
+            Register
+          </Button>
+        )}
+      </Box>
         </Grid>
       </Grid>
     </Paper>
@@ -77,4 +123,3 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
 };
 
 export default EventDetailsPage;
-export const dynamic = "force-dynamic";

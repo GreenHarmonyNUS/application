@@ -1,8 +1,12 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { EventCreateInputSchema } from "prisma/generated/zod";
+import OpenAI from "openai";
 
 const idSchema = z.object({ id: z.number() });
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export const eventRouter = createTRPCRouter({
   getOne: publicProcedure.input(idSchema).query(({ input, ctx }) => {
@@ -51,12 +55,58 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+  isRegistered: protectedProcedure
+    .input(z.object({ eventId: z.number(), userId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const { eventId, userId: participant } = input;
+      return ctx.db.eventRegistrations
+        .findUniqueOrThrow({
+          where: {
+            eventId_participant: { eventId, participant },
+          },
+        })
+        .then(() => true)
+        .catch(() => false);
+    }),
   create: protectedProcedure
     .input(EventCreateInputSchema)
     .mutation(async ({ input, ctx }) => {
       await ctx.db.$connect();
-      return ctx.db.event.create({
+      const createdEvent = await ctx.db.event.create({
         data: EventCreateInputSchema.parse(input),
+      });
+      const { id: eventId } = createdEvent;
+      const { name: eventName, details: eventDetails } = input;
+      const hashtags = await openai.chat.completions
+        .create({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: `Generate 3 unique tags related to the following event:\nTitle: ${eventName}\nDetails: ${eventDetails}.\nReturn the data without # and in a JSON array with \"hashtags\" as the key.`,
+            },
+          ],
+          temperature: 1,
+          max_tokens: 256,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0,
+        })
+        .then(({ choices }) => choices)
+        .then((choices) => {
+          if (!choices || choices.length === 0) throw new Error();
+          const { content } = choices[0]?.message ?? {
+            content: "",
+          };
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          return JSON.parse(content!).hashtags as Array<string>;
+        })
+        .catch((err) => {
+          console.error(err);
+          return ["#volunteering", "#environment", "#together"];
+        });
+      await ctx.db.eventTag.createMany({
+        data: hashtags.map((name) => ({ name, eventId })),
       });
     }),
   delete: protectedProcedure.input(idSchema).mutation(({ input, ctx }) => {
