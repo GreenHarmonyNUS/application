@@ -2,6 +2,7 @@
 
 - [GreenHarmony](#greenharmony)
   - [Introduction](#introduction)
+  - [Overview](#overview)
     - [Architecture](#architecture)
     - [User Authentication](#user-authentication)
   - [Development](#development)
@@ -51,6 +52,8 @@ Configure the environment variables by creating a `.env` file and setting the fo
 DATABASE_URL=<"postgresql://<username>:<password>@<host>:5432/<database_name>"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET=<random_string>
+EMAIL_SERVER="smtp://<user>:<password>@<host>:<port>"
+EMAIL_FROM="<from_user>@<domain>"
 ```
 
 > Note: `NEXTAUTH_SECRET` is used to securely encrypt cookies and hash tokens and is __required__ in production.
