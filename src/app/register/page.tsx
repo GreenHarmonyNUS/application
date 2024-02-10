@@ -4,9 +4,16 @@ import CreateUserForm from "./_components/CreateUserForm";
 import type { CreateUserInputs } from "./_components/CreateUserForm";
 import { api } from "~/trpc/react";
 import dayjs from "dayjs";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const NewUserPage = () => {
+  const { status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (status === "authenticated") router.push("/dashboard");
+  }, [status, router]);
   const createUserMutation = api.user.create.useMutation();
 
   const onCreateUser: SubmitHandler<CreateUserInputs> = async (
@@ -53,8 +60,13 @@ const NewUserPage = () => {
       emergencyRelationship,
       emergencyPhone,
     });
+    console.log("created user in db");
 
-    return signIn("email", { email });
+    signIn("email", {
+      email,
+      callbackUrl: "/api/auth/verify-request?provider=email&type=email",
+    }).catch((err) => console.error(err));
+    console.log("email signin request complete");
   };
 
   return (
