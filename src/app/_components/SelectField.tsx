@@ -59,8 +59,8 @@ const SelectField = ({
               >
                 {options.map((option) => {
                   return (
-                    <MenuItem key={nanoid()} value={option.label}>
-                      <ListItemText primary={option.value} />
+                    <MenuItem key={nanoid()} value={option.value}>
+                      <ListItemText primary={option.label} />
                     </MenuItem>
                   );
                 })}
