@@ -30,7 +30,7 @@ const Navbar = () => {
     <div className="nav relative flex h-20 w-full items-center justify-between bg-green-600 px-4 text-white">
       <h1 className="font-signature ml-2 text-2xl font-bold">
         <a className="link-underline link-underline-black" href="/">
-          Hack For Good 2024
+          GreenHarmony
         </a>
       </h1>
 
