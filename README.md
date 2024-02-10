@@ -1,18 +1,35 @@
 # GreenHarmony
 
+- [GreenHarmony](#greenharmony)
+  - [Introduction](#introduction)
+    - [Architecture](#architecture)
+    - [User Authentication](#user-authentication)
+  - [Development](#development)
+    - [Getting Started](#getting-started)
+    - [Code style](#code-style)
+    - [Prisma](#prisma)
+
 ## Introduction 
 
-GreenHarmony is an all-in-one volunteer management platform that aims to affirm and recognise the contributions of volunteers and participants. Organising and managing volunteers has never been easier with GreenHarmony. We streamline the whole process from volunteer registration to attendance taking and contribution recognition. 
+<!-- omit in toc -->
+### _"Connecting People, Planting Futures"_
 
-Join us in celebrating the spirit of volunteerism and creating a harmonious environment where every contribution is valued.
+GreenHarmony is a community-centric volunteer management platform.
 
-## Overview
+We aim to affirm and recognise the contributions of volunteers and cultivate a deeply-rooted community.
+
+We propose a digital system that streamlines the volunteering process from volunteer registration to contribution recognition.
+Our proposal emphasizes tracking learning outcomes based on activities and bringing the community together.
+
+With this, we hope to tackle challenges Ground-up initiative faces.## Overview
 
 ### Architecture
 
 ![GreenHarmony Architecture](img/architecture.jpg)
 
-Using the T3 stack, we implement modern, server-side rendered application which is highly efficient and secure. TypeScript allows us to perform static type checking, allowing us to quickly and efficiently perform remote procedure calls with tRPC. 
+Using the T3 stack, we implement a modern, server-side rendered application which is highly efficient and secure. TypeScript allows us to perform static type checking, allowing us to quickly and efficiently perform remote procedure calls with tRPC. 
+
+We take advantage of cloud infrastructure by deploying on Vercel. This allows us reduce request latency and achive a highly-available, horizontally-scalable, infinite-scaling application, allowing users to enjoy a seamless experience with little loading time. 
 
 ### User Authentication
 
@@ -53,7 +70,7 @@ Then populate the database with dummy data by running the queries located in `pr
 
 Husky and Lint-staged is used to standardise the coding style with Prettier, while ESlint is used to enforce code quality and are run automatically through a pre-commit hook.
 
-### Prisma schema
+### Prisma
 
 After making changes to `prisma/schema.prisma`, format the schema and update the database.
 
