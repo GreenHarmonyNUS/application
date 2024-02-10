@@ -50,7 +50,7 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
             }}
             src={
               event.image
-                ? `${process.env.NEXTAUTH_URL}/${event.image}`
+                ? `https://${process.env.VERCEL_URL}/${event.image}`
                 : "/assets/default.jpg"
             }
             alt={event.name}
