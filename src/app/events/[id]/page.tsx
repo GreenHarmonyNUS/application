@@ -48,11 +48,7 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
               objectFit: "cover",
               marginBottom: 2,
             }}
-            src={
-              event.image
-                ? `https://${process.env.VERCEL_URL}/${event.image}`
-                : "/assets/default.jpg"
-            }
+            src={event.image ? `${event.image}` : "/assets/default.jpg"}
             alt={event.name}
           />
         </Grid>
