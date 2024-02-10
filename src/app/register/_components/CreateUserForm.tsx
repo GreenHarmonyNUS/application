@@ -124,8 +124,8 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
         label="Residential area"
         control={control}
         options={Object.entries(ResidentialDistrict).map(([label, value]) => ({
-          label,
-          value,
+          label: value,
+          value: label,
         }))}
         className="pb-4"
       />
@@ -145,8 +145,8 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
         label="Volunteer Status"
         control={control}
         options={Object.entries(VolunteerStatus).map(([label, value]) => ({
-          label,
-          value,
+          label: value,
+          value: label,
         }))}
         className="pb-4"
       />
@@ -168,7 +168,7 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
         label="Preferred communication"
         control={control}
         options={Object.entries(PreferredCommunication).map(
-          ([label, value]) => ({ label, value }),
+          ([label, value]) => ({ label: value, value: label }),
         )}
         className="pb-4"
       />
@@ -189,8 +189,8 @@ const CreateUserForm = ({ submitHandler }: CreateUserFormProps) => {
         control={control}
         options={Object.entries(EmergencyRelationship).map(
           ([label, value]) => ({
-            label,
-            value,
+            label: value,
+            value: label,
           }),
         )}
         className="pb-4"
