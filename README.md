@@ -21,7 +21,9 @@ We aim to affirm and recognise the contributions of volunteers and cultivate a d
 We propose a digital system that streamlines the volunteering process from volunteer registration to contribution recognition.
 Our proposal emphasizes tracking learning outcomes based on activities and bringing the community together.
 
-With this, we hope to tackle challenges Ground-up initiative faces.## Overview
+With this, we hope to tackle challenges Ground-up initiative faces.
+
+## Overview
 
 ### Architecture
 
