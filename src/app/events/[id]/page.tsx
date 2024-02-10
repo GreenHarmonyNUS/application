@@ -63,7 +63,7 @@ const EventDetailsPage: React.FC<{ params: { id: string } }> = async ({
           </Typography>
 
           <Typography variant="subtitle1" gutterBottom>
-            <strong>Duration:</strong> {event.duration} minutes
+            <strong>Duration:</strong> {event.duration} hours
           </Typography>
 
           <Grid container alignItems="center" spacing={1}>
