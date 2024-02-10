@@ -191,7 +191,7 @@ function html(params: { url: string; host: string; theme: Theme }) {
                           <tr>
                             <td>
                               <a href="https://example.com" class="dark-text-gray-50" style="text-decoration: none; font-weight: 700; color: #191847">
-                                Hack For Good 2024
+                                GreenHarmony
                               </a>
                             </td>
                           </tr>

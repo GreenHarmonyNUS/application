@@ -1,6 +1,29 @@
-# NUS Hack For Good 2024
+# GreenHarmony
 
-## Getting Started
+## Introduction 
+
+GreenHarmony is an all-in-one volunteer management platform that aims to affirm and recognise the contributions of volunteers and participants. Organising and managing volunteers has never been easier with GreenHarmony. We streamline the whole process from volunteer registration to attendance taking and contribution recognition. 
+
+Join us in celebrating the spirit of volunteerism and creating a harmonious environment where every contribution is valued.
+
+## Overview
+
+### Architecture
+
+![GreenHarmony Architecture](img/architecture.jpg)
+
+Using the T3 stack, we implement modern, server-side rendered application which is highly efficient and secure. TypeScript allows us to perform static type checking, allowing us to quickly and efficiently perform remote procedure calls with tRPC. 
+
+### User Authentication
+
+![GreenHarmony User Authentication Flow](img/authentication.jpg)
+
+We implement a passwordless login feature that allows users to login to our application through __magic link__.
+Emails are signed using a DKIM key, and is verified by the receiving mail server through a DNS TXT record to prevent our emails from being impersonated by potential attackers.
+
+## Development
+
+### Getting Started
 
 Ensure that PostgreSQL version `>15` is installed locally 
 
@@ -14,23 +37,21 @@ NEXTAUTH_SECRET=<random_string>
 > Note: `NEXTAUTH_SECRET` is used to securely encrypt cookies and hash tokens and is __required__ in production.
 > To generate a random string, run `openssl rand -base64 32`.
 
-Create a database and run the following command:
-```sh
-npx prisma db push
-```
-
-Then populate the database with dummy data located in `prisma/data.sql`.
-
 ```sh
 npm install
 npm run dev
 ```
 
-## Development
+Create a database and run the following command:
+```sh
+npx prisma db push
+```
+
+Then populate the database with dummy data by running the queries located in `prisma/data.sql`.
 
 ### Code style
 
-Prettier is used as the code formatter for this application. It is recommended to use the [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) from Visual Studio Code.
+Husky and Lint-staged is used to standardise the coding style with Prettier, while ESlint is used to enforce code quality and are run automatically through a pre-commit hook.
 
 ### Prisma schema
 
