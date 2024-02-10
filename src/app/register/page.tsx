@@ -5,16 +5,29 @@ import type { CreateUserInputs } from "./_components/CreateUserForm";
 import { api } from "~/trpc/react";
 import dayjs from "dayjs";
 import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const NewUserPage = () => {
   const { status } = useSession();
   const router = useRouter();
+
   useEffect(() => {
     if (status === "authenticated") router.push("/dashboard");
   }, [status, router]);
-  const createUserMutation = api.user.create.useMutation();
+
+  const { mutate: createUserMutation, isSuccess } =
+    api.user.create.useMutation();
+  const [userEmail, setUserEmail] = useState("");
+  useEffect(() => {
+    async function executeEmailSignIn() {
+      await signIn("email", { email: userEmail });
+    }
+    if (isSuccess)
+      executeEmailSignIn().catch(() => {
+        console.error("Failed to request magic link.");
+      });
+  }, [isSuccess, userEmail]);
 
   const onCreateUser: SubmitHandler<CreateUserInputs> = async (
     user: CreateUserInputs,
@@ -36,8 +49,9 @@ const NewUserPage = () => {
       emergencyRelationship,
       emergencyPhone,
     } = user;
+    setUserEmail(email);
 
-    createUserMutation.mutate({
+    createUserMutation({
       email,
       phone: mobile,
       name,
@@ -60,13 +74,6 @@ const NewUserPage = () => {
       emergencyRelationship,
       emergencyPhone,
     });
-    console.log("created user in db");
-
-    signIn("email", {
-      email,
-      callbackUrl: "/api/auth/verify-request?provider=email&type=email",
-    }).catch((err) => console.error(err));
-    console.log("email signin request complete");
   };
 
   return (
